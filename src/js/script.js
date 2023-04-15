@@ -23,11 +23,18 @@ function initActions(){
   for(let show of doubleClickElement){
     show.addEventListener('click', function(){
       event.preventDefault();
-      show.classList.add('favorite');
       const addId = show.getAttribute('data-id');
-      favoriteBooks.push(addId);
+      const idIndex = favoriteBooks.indexOf(addId);
+      if(idIndex === -1){
+        show.classList.add('favorite');
+        favoriteBooks.push(addId);
+      } else {
+        show.classList.remove('favorite');
+        favoriteBooks.splice(idIndex, 1);
+      }
       console.log(favoriteBooks);
     });
+    
   }
 }
 initActions();
