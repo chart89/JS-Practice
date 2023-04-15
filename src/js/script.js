@@ -10,7 +10,7 @@ function render(){
     const generatedHTML = tplBooks(dataBooks); 
     const showBooks = utils.createDOMFromHTML(generatedHTML);
     booksList.appendChild(showBooks);
-}
+  }
 }
 
 render();
@@ -21,7 +21,7 @@ const doubleClickElement = document.querySelectorAll('.book__image');
 
 function initActions(){
   for(let show of doubleClickElement){
-    show.addEventListener('click', function(){
+    show.addEventListener('dblclick', function(){
       event.preventDefault();
       const addId = show.getAttribute('data-id');
       const idIndex = favoriteBooks.indexOf(addId);
