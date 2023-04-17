@@ -12,35 +12,31 @@ function render(){
     booksList.appendChild(showBooks);
   }
 }
-
 render();
+
 
 //FAVORITE BOOKS
 const favoriteBooks = [];
-const doubleClickElement = document.querySelectorAll('.book__image');
 
 function initActions(){
-  for(let show of doubleClickElement){
-    show.addEventListener('dblclick', function(){
-      event.preventDefault();
-      const addId = show.getAttribute('data-id');
+  booksList.addEventListener('dblclick', function(){
+    event.preventDefault();
+    if(event.target.offsetParent.classList.contains('book__image')){
+      const addId = event.target.offsetParent.getAttribute('data-id');
       const idIndex = favoriteBooks.indexOf(addId);
       if(idIndex === -1){
-        show.classList.add('favorite');
+        event.target.offsetParent.classList.add('favorite');
         favoriteBooks.push(addId);
       } else {
-        show.classList.remove('favorite');
+        event.target.offsetParent.classList.remove('favorite');
         favoriteBooks.splice(idIndex, 1);
       }
       console.log(favoriteBooks);
-    });
-    
-  }
-}
+    }
+  }); 
+} 
+
 initActions();
-
-  
-
 
 
 
