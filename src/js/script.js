@@ -1,10 +1,12 @@
 'use strict';
-// DISPLAY BOOKS BASED ON TEMPLE
+
 const templateBooks = document.querySelector('#template-book').innerHTML;
 const tplBooks = Handlebars.compile(templateBooks);
-
 const booksList = document.querySelector('.books-list');
+const form = document.querySelector('.filters');
 
+
+// DISPLAY BOOKS BASED ON TEMPLE
 function render(){
   for (let dataBooks of dataSource.books){
     const generatedHTML = tplBooks(dataBooks); 
@@ -17,6 +19,7 @@ render();
 
 //FAVORITE BOOKS
 const favoriteBooks = [];
+const filters =[];
 
 function initActions(){
   booksList.addEventListener('dblclick', function(){
@@ -31,9 +34,19 @@ function initActions(){
         event.target.offsetParent.classList.remove('favorite');
         favoriteBooks.splice(idIndex, 1);
       }
-      console.log(favoriteBooks);
     }
   }); 
+  form.addEventListener('change', function(){
+    event.preventDefault();
+    if(event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter'){
+      if(event.target.checked && filters.indexOf(event.target.value) === -1){
+        filters.push(event.target.value);
+      } else{
+        filters.splice(event.target.value, 1);
+      }
+    }
+    console.log(filters);
+  });
 } 
 
 initActions();
