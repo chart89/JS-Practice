@@ -4,6 +4,8 @@ const templateBooks = document.querySelector('#template-book').innerHTML;
 const tplBooks = Handlebars.compile(templateBooks);
 const booksList = document.querySelector('.books-list');
 const form = document.querySelector('.filters');
+const bookImage = document.querySelectorAll('.book__image');
+
 
 
 // DISPLAY BOOKS BASED ON TEMPLE
@@ -45,12 +47,33 @@ function initActions(){
         filters.splice(event.target.value, 1);
       }
     }
+    
     console.log(filters);
+    filterBox();
   });
+  
 } 
 
 initActions();
 
+//FILTERS BOOKS BASED ON CATEGORY
+function filterBox(){
+  for(let dataBooks of dataSource.books){
+    let shouldBeHidden = false;
+    for(let filter of filters){
+      if(dataBooks.details[filter] !== true){
+        shouldBeHidden = true;
+        break;
+      }
+    }
+    const shouldBeDispaly = document.querySelector('.book__image[data-id="' + dataBooks.id + '"]');
+    if(shouldBeHidden != true){
+      shouldBeDispaly.classList.remove('hidden');
+    } else {
+      shouldBeDispaly.classList.add('hidden');
+    }
+  }
+}
 
 
 
